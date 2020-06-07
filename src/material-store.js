@@ -23,7 +23,6 @@ const add = (name, price) => {
 materialStore.subscribe(items => {
     const jsonString = JSON.stringify(items);
     localStorage.setItem(key, jsonString);
-    console.log(items, 'materials');
 })
 
 export default {
