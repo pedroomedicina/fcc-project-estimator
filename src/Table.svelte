@@ -19,6 +19,10 @@
     function edit(id, name, price) {
         dispatch("edit", { id, name, price });
     }
+
+    function remove(id) {
+        materialStore.remove(id);
+    }
 </script>
 
 <style>
@@ -28,6 +32,10 @@
 
     tr {
         cursor: pointer;
+    }
+
+    tr:last-of-type {
+        cursor: inherit;
     }
 </style>
 
@@ -41,7 +49,9 @@
     </thead>
     <tbody>
         {#each materials as material (material.id)}
-            <tr on:click={edit(material.id, material.name, material.price)}>
+            <tr on:click={
+                    edit(material.id, material.name, material.price)
+                }>
                 <td>
                     {material.name}
                 </td>
@@ -49,7 +59,11 @@
                     {formatter.format(material.price)}
                 </td>
                 <td>
-                    <i class="far fa-trash-alt"></i>
+                    <span
+                        on:click|stopPropagation={remove(material.id)}
+                    >
+                        <i class="far fa-trash-alt" />    
+                    </span>
                 </td>
             </tr>
         {/each}
